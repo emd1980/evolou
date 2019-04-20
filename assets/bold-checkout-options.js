@@ -1,0 +1,2 @@
+window.BOLD = window.BOLD || {};
+window.BOLD.checkout_features_defaults=[{"name":"Multi-Currency","require":true,"id":"ad4bf341-d030-11e6-b75c-0242ac110005"},{"name":"checkout-always-on","require":true},{"name":"Product Upsell","require":true,"id":"bd418c3c-a207-11e7-9971-42010af00be5"},{"name":"Social Discount","require":true,"id":"53c3d828-85f4-11e6-a45a-0242ac110004"}]

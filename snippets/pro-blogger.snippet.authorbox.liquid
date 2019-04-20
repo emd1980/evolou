@@ -1,0 +1,383 @@
+{% assign boxlayout = 'horizontal-line' %}
+
+{% assign boxcustom = true %}
+
+{% assign boxgcolor = '#ffffff' %}
+{% assign boxborder = '1px' %}
+{% assign boxbordercolor = '#999999' %}
+
+
+{% assign authorimage = false %}
+{% assign authorheader = 'h4' %}
+{% assign authorheadercolor = '#333333' %}
+{% assign authortextcolor = '#333333' %}
+
+{% assign socialshape = 'round' %}
+{% assign socialscheme = 'color' %}
+{% assign socialsize = '28x' %}
+
+{% assign authimg = authimg | strip %}
+
+{{ 'pb-authorbox.scss.css' | asset_url | stylesheet_tag }}
+
+{% if boxcustom %}
+	{% assign boxstyle = "style='background : " | append: boxgcolor | append: ";border :" | append: boxbordercolor | append: " " | append: boxborder | append:" solid'" %}
+{% else %}
+	{% assign boxstyle = "style=''" %}
+{% endif %}
+
+{% assign tdstyle = "" %}
+
+{% capture headerstart %}
+{% if boxcustom %}
+	<{{ authorheader }} style="color : {{ authorheadercolor}}">
+  {% else %}
+  	<{{ authorheader }}>
+  {% endif %}
+{% endcapture %}
+
+{% capture headerend %}
+</{{ authorheader }}>
+{% endcapture %}
+
+{% if authemail contains '@' %}
+{% assign emailicon = 'pb-email-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authfbook contains 'facebook' %}
+{% assign facebookicon = 'pb-facebook-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authtwitter contains 'twitter' %}
+{% assign twittericon = 'pb-twitter-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authinsta contains 'instagram' %}
+{% assign instaicon = 'pb-instagram-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authpin contains 'pinterest' %}
+{% assign pinicon = 'pb-pinterest-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authlink contains 'linkedin' %}
+{% assign linkedicon = 'pb-linkedin-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authsnap contains 'snapchat' %}
+{% assign snapicon = 'pb-snapchat-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authtube contains 'tube' %}
+{% assign tubeicon = 'pb-youtube-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+{% if authweb contains '.' %}
+{% assign wwwicon = 'pb-www-' | append : socialshape | append: '-' | append: socialscheme | append: '.png' %}
+{% endif %}
+
+<!-- standard left to right format -->
+
+  {% case boxlayout %}
+  {% when 'horizontal-box' %}
+<div>
+      	<table {{ boxstyle }}><tr style="border : 0px;">
+  {% if authorimage %}
+ <td style="border : 0px; padding-bottom : 0px; padding-right : 0px; padding-top : 16px; width : 90px">
+<div class="pb-author" data-email="{{ authemail }}">
+  {% if authimg contains 'http' %}
+	<img src="{{ authimg }}" style="width : 80px"/>
+  {% else %}
+  	  {% if authimg contains '.' %}
+			<img src="{{ authimg | strip | asset_img_url: '80x' }}" />
+  		{% else %}
+  			<img src="//1.gravatar.com/avatar/{{ authemail | strip | strip_newlines | downcase | md5 }}?s=80" />
+  		{% endif %}
+  {% endif %}
+</div>
+      </td>
+    {% endif %}
+ <td style="border : 0px; padding-bottom : 0px; padding-left : 4px; padding-top : 16px;">
+  {{ headerstart }}{{ newauthor }}{{ headerend }}
+{% if boxcustom %}
+<p style="color : {{ authortextcolor }}">
+  {{ newauthorbio }}
+</p>
+      {% else %}
+  <p >
+  {{ newauthorbio }}
+</p>
+{% endif %}
+  </td>
+      </tr>
+        <tr style="border : 0px;">
+      {% if authorimage %}
+      <td style="border : 0px; padding-bottom : 0px; padding-top : 0px;" colspan=2>
+      {% else %}
+       <td style="border : 0px; padding-bottom : 0px; padding-top : 0px;">
+      {% endif %}
+
+  <span style="display: block; text-align: center">
+    {% if emailicon %}
+    	<a href="mailto:{{ authemail }}" target="_blank" style="border-bottom : 0px;"><img src="{{ emailicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if facebookicon %}
+    	<a href="{{ authfbook }}" target="_blank" style="border-bottom : 0px;"><img src="{{ facebookicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if twittericon %}
+    	<a href="{{ authtwitter }}" target="_blank" style="border-bottom : 0px;"><img src="{{ twittericon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if instaicon %}
+    	<a href="{{ authinsta }}" target="_blank" style="border-bottom : 0px;"><img src="{{ instaicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if pinicon %}
+    	<a href="{{ authpin }}" target="_blank" style="border-bottom : 0px;"><img src="{{ pinicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if linkedicon %}
+    	<a href="{{ authlink }}" target="_blank" style="border-bottom : 0px;"><img src="{{ linkedicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if snapicon %}
+    	<a href="{{ authsnap }}" target="_blank" style="border-bottom : 0px;"><img src="{{ snapicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if tubeicon %}
+    	<a href="{{ authtube }}" target="_blank" style="border-bottom : 0px;"><img src="{{ tubeicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if wwwicon %}
+    	<a href="{{ authweb }}" target="_blank" style="border-bottom : 0px;"><img src="{{ wwwicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+</span>
+
+  </td></tr></table>
+</div>
+
+{% when 'horizontal-line' %}
+
+  <div>
+  <table style="border : 0px; background-color: transparent;" >
+  {% if authorimage %}
+    <tr style="border : 0px;">
+      <td style="text-align: center; border : 0px; padding-bottom : 0px; width: 90px" rowspan=2>
+	<div class="pb-author">
+        {% if authimg contains 'http' %}
+          <img src="{{ authimg }}" style="width : 80px"/>
+        {% else %}
+  	  		{% if authimg contains '.' %}
+				<img src="{{ authimg | strip | asset_img_url: '80x' }}" />
+            {% else %}
+                <img src="//1.gravatar.com/avatar/{{ authemail | strip | strip_newlines | downcase | md5 }}?s=80" />
+            {% endif %}
+  		{% endif %}
+		</div>
+  </td>
+  <td style="width : 98%; padding-bottom : 0px; border: 0px; height : 40px;">{{ headerstart }}{{ newauthor }}{{ headerend }}</td>
+  </tr>
+  {% else %}
+      <tr style="border : 0px;">
+  <td style="width : 98%; padding-bottom : 0px; border: 0px; height : 40px;" colspan=2>{{ headerstart }}{{ newauthor }}{{ headerend }}</td>
+  </tr>
+
+  {% endif %}
+
+  {% if boxcustom %}
+  <tr style="border : 0px;">
+  	<td style="border : 0px;  border-top :  {{ boxborder }} solid {{ boxbordercolor }}">
+      <span style="color : {{ authortextcolor}}">{{ newauthorbio }}</span>
+      </td>
+  </tr>
+      {% else %}
+  <tr style="border : 0px;">
+  	<td style="border : 0px;  border-top : 1px solid">
+      <span>{{ newauthorbio }}</span>
+      </td>
+  </tr>
+{% endif %}
+
+
+  <tr style="border : 0px;"><td style="border : 0px; padding-bottom : 0px;" colspan=2>
+  <span style="display: block; text-align: center">
+    {% if emailicon %}
+    	<a href="mailto:{{ authemail }}" target="_blank" style="border-bottom : 0px;"><img src="{{ emailicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if facebookicon %}
+    	<a href="{{ authfbook }}" target="_blank" style="border-bottom : 0px;"><img src="{{ facebookicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if twittericon %}
+    	<a href="{{ authtwitter }}" target="_blank" style="border-bottom : 0px;"><img src="{{ twittericon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if instaicon %}
+    	<a href="{{ authinsta }}" target="_blank" style="border-bottom : 0px;"><img src="{{ instaicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if pinicon %}
+    	<a href="{{ authpin }}" target="_blank" style="border-bottom : 0px;"><img src="{{ pinicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if linkedicon %}
+    	<a href="{{ authlink }}" target="_blank" style="border-bottom : 0px;"><img src="{{ linkedicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if snapicon %}
+    	<a href="{{ authsnap }}" target="_blank" style="border-bottom : 0px;"><img src="{{ snapicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if tubeicon %}
+    	<a href="{{ authtube }}" target="_blank" style="border-bottom : 0px;"><img src="{{ tubeicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if wwwicon %}
+    	<a href="{{ authweb }}" target="_blank" style="border-bottom : 0px;"><img src="{{ wwwicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+</span>
+  </td></tr></table>
+</div>
+
+{% when 'vertical-box' %}
+
+<div>
+  <table {{ boxstyle }}>
+    {% if authorimage %}
+    <tr style="border : 0px;">
+      <td style="text-align: center; border : 0px; width : 45%; padding-bottom : 0px;"></td><td style="text-align: center; border : 0px; padding-bottom : 0px;">
+      <div class="pb-author" style="height: 90px;">
+        {% if authimg contains 'http' %}
+          <img src="{{ authimg }}" style="width : 80px"/>
+        {% else %}
+            {% if authimg contains '.' %}
+                  <img src="{{ authimg | strip | asset_img_url: '80x' }}" />
+              {% else %}
+                  <img src="//1.gravatar.com/avatar/{{ authemail | strip | strip_newlines | downcase | md5 }}?s=80" />
+              {% endif %}
+        {% endif %}
+      </div>
+    </td>
+      <td style="text-align: center; border : 0px; width : 45%; padding-bottom : 0px;"></td>
+    </tr>
+ {% endif %}
+ <tr style="border : 0px;">
+	 <td colspan=3 style="text-align: center; border : 0px; padding-top : 0px; padding-bottom : 0px;" >
+   {% if authorimage == false %}
+   <br />
+   {% endif %}
+      {{ headerstart }}{{ newauthor }}{{ headerend }}
+      {% if boxcustom %}
+  <p style="color : {{ authortextcolor}}">{{ newauthorbio }}</p>
+      {% else %}
+        <p>{{ newauthorbio }}</p>
+      {% endif %}
+
+  <span style="display: block; text-align: center">
+    {% if emailicon %}
+    	<a href="mailto:{{ authemail }}" target="_blank" style="border-bottom : 0px;"><img src="{{ emailicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if facebookicon %}
+    	<a href="{{ authfbook }}" target="_blank" style="border-bottom : 0px;"><img src="{{ facebookicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if twittericon %}
+    	<a href="{{ authtwitter }}" target="_blank" style="border-bottom : 0px;"><img src="{{ twittericon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if instaicon %}
+    	<a href="{{ authinsta }}" target="_blank" style="border-bottom : 0px;"><img src="{{ instaicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if pinicon %}
+    	<a href="{{ authpin }}" target="_blank" style="border-bottom : 0px;"><img src="{{ pinicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if linkedicon %}
+    	<a href="{{ authlink }}" target="_blank" style="border-bottom : 0px;"><img src="{{ linkedicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if snapicon %}
+    	<a href="{{ authsnap }}" target="_blank" style="border-bottom : 0px;"><img src="{{ snapicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if tubeicon %}
+    	<a href="{{ authtube }}" target="_blank" style="border-bottom : 0px;"><img src="{{ tubeicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if wwwicon %}
+    	<a href="{{ authweb }}" target="_blank" style="border-bottom : 0px;"><img src="{{ wwwicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+</span>
+  </td></tr></table>
+</div>
+
+{% when 'vertical-line' %}
+
+<div>
+  <table style="border : 0px; background-color: transparent;" >
+    {% if authorimage %}
+    <tr style="border : 0px;">
+      <td style="width : 47%; padding-bottom : 0px; height : 40px; border : 0px;"></td>
+      <td style="text-align: center; text-align: center; border : 0px; padding-bottom : 0px;" rowspan=2>
+      <div class="pb-author" style="height: 90px;">
+      {% if authimg contains 'http' %}
+        <img src="{{ authimg }}" style="width : 80px"/>
+      {% else %}
+          {% if authimg contains '.' %}
+                <img src="{{ authimg | strip | asset_img_url: '80x' }}" />
+            {% else %}
+                <img src="//1.gravatar.com/avatar/{{ authemail | strip | strip_newlines | downcase | md5 }}?s=80" />
+            {% endif %}
+      {% endif %}
+    	</div>
+    	</td>
+      <td style="width : 47%; padding-bottom : 0px; border: 0px"></td>
+  	</tr>
+    {% else %}
+    <tr style="border : 0px;">
+      <td style="width : 47%; padding-bottom : 0px; height : 40px; border : 0px; text-align: center;">
+       {{ headerstart }}{{ newauthor }}{{ headerend }}
+      </td>
+     </tr>
+    {% endif %}
+	{% if authorimage %}
+          <tr style="border : 0px;">
+      {% if boxcustom %}
+      	<td style="border : 0px;  border-top :  {{ boxborder }} solid {{ boxbordercolor }}; padding-bottom : 0px;"></td>
+      	<td style="border : 0px;  border-top : {{ boxborder }} solid {{ boxbordercolor }}; padding-bottom : 0px;"></td>
+      {% else %}
+      	<td style="border : 0px;  border-top : 1px solid; padding-bottom : 0px;"></td>
+      	<td style="border : 0px;  border-top : 1px solid; padding-bottom : 0px;"></td>
+      {% endif%}
+      </tr>
+    {% else %}
+          <tr style="border : 0px;">
+      {% if boxcustom %}
+      	<td style="border : 0px;  border-top :  {{ boxborder }} solid {{ boxbordercolor }}; padding-bottom : 0px;"></td>
+      {% else %}
+      	<td style="border : 0px;  border-top : 1px solid; padding-bottom : 0px;"></td>
+      {% endif%}
+      </tr>
+      
+    {% endif %}
+
+    <tr style="border : 0px;">
+      {% if authorimage %}
+      	<td colspan=3 style="text-align: center; border : 0px; padding-bottom : 0px;" >
+ 		{{ headerstart }}{{ newauthor }}{{ headerend }}
+      {% else %}
+      	<td style="text-align: center; border : 0px; padding-bottom : 0px;" >
+      {% endif %}
+      {% if boxcustom %}
+<p style="color : {{ authortextcolor}}">
+      {% else %}
+      <p>
+      {% endif %}
+  {{ newauthorbio }}
+</p>
+  <span style="display: block; text-align: center">
+    {% if emailicon %}
+    	<a href="mailto:{{ authemail }}" target="_blank" style="border-bottom : 0px;"><img src="{{ emailicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if facebookicon %}
+    	<a href="{{ authfbook }}" target="_blank" style="border-bottom : 0px;"><img src="{{ facebookicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if twittericon %}
+    	<a href="{{ authtwitter }}" target="_blank" style="border-bottom : 0px;"><img src="{{ twittericon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if instaicon %}
+    	<a href="{{ authinsta }}" target="_blank" style="border-bottom : 0px;"><img src="{{ instaicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if pinicon %}
+    	<a href="{{ authpin }}" target="_blank" style="border-bottom : 0px;"><img src="{{ pinicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if linkedicon %}
+    	<a href="{{ authlink }}" target="_blank" style="border-bottom : 0px;"><img src="{{ linkedicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if snapicon %}
+    	<a href="{{ authsnap }}" target="_blank" style="border-bottom : 0px;"><img src="{{ snapicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if tubeicon %}
+    	<a href="{{ authtube }}" target="_blank" style="border-bottom : 0px;"><img src="{{ tubeicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+    {% if wwwicon %}
+    	<a href="{{ authweb }}" target="_blank" style="border-bottom : 0px;"><img src="{{ wwwicon | strip | asset_img_url: socialsize }}" /></a>
+    {% endif %}
+</span>
+  </td></tr></table>
+</div>
+
+  {% endcase %}

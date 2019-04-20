@@ -1,0 +1,6 @@
+{% assign newauthor = article.author %}
+{% assign newauthorbio = article.user.bio  %}
+{% assign authorupdate = false %}
+{% capture article_contents %}
+{% include 'pro-blogger.shortcode' load: article.content %}
+{% endcapture %}

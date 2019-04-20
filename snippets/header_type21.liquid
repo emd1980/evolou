@@ -1,0 +1,47 @@
+<div class="header">
+  <div class="switcher-area">
+    {% include 'header-setting' %}
+    <div class="mini-cart">
+      {% include 'header-cart' %} 
+    </div>
+  </div>
+  {% include 'header-logo' %}
+  {%- if settings.new_style_css == 'yes' -%}
+  <div class="search-area"> 
+    <a href="javascript:void(0);" class="search-icon"><span><i class="icon-search"></i></span></a>
+    {% include 'header-search' %}
+  </div>
+  {%- endif -%}
+  {%- if settings.new_style_css == 'yes' -%}
+  <div class="menu-icon"><a href="javascript:void(0)" title="Menu"><i class="fa fa-bars"></i></a></div>
+  {%- endif -%}
+  {% include 'side-menu' %} 
+  <div class="mobile-group">
+    {%- if settings.new_style_css == 'no' -%}
+    <div class="search-area"> 
+      <a href="javascript:void(0);" class="search-icon"><span><i class="icon-search"></i></span></a>
+      {% include 'header-search' %}
+    </div>
+    {%- endif -%}
+    <div class="top-links-area">
+      <div class="top-links-icon">
+        <a href="javascript:;" {% if settings.language_enable %}data-translate="header.settings.links"{% endif %}>{{ 'header.settings.links' | t }}</a>
+      </div>
+      {% section 'header-toplink-menu' %}
+    </div>
+    {%- if settings.new_style_css == 'no' -%}
+    <div class="menu-icon"><a href="javascript:void(0)" title="Menu"><i class="fa fa-bars"></i></a></div>
+    {%- endif -%}
+  </div>
+  {% if settings.header_custom_text != '' %}
+  <div class="custom-block"> 
+    {% if settings.language_enable %}
+    <div class="lang1">{{ settings.header_custom_text | split: '[lang2]' | first }}</div>
+    <div class="lang2">{{ settings.header_custom_text | split: '[lang2]' | last }}</div>
+    {% else %}
+    {{ settings.header_custom_text | split: '[lang2]' | first }}
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class="clearer"></div> 
+</div>  

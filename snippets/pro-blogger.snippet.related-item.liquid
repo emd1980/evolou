@@ -1,0 +1,27 @@
+{% if isarticle %}
+<div>
+  <div class="carousel-image-wrapper">
+    <a style="border : 0px;" href="{{ articleURL }}"><img src="{{ articleImg }}" alt="" nopin="true" /></a>
+   
+  </div>
+  <div class="carousel-text-wrapper">
+     <h4><a style="border : 0px;" href="{{ articleURL }}">{{ articleTitle }}</a></h4>
+    {% if articleTruncate == 0 or arttruncate == 0 %}
+    <p></p>
+    {% else %}
+    <p class="carousel-text-excerpt">{{ articleExcerpt }}</p>
+    {% endif %}
+  </div>
+</div>
+{% else %}
+
+   <div>
+     <div class="carousel-image-wrapper">
+      <a style="border : 0px;" href="{{ ProdURL }}"><img src="{{ ProdImg }}" alt="" nopin="true" /></a>
+     </div>
+     <div class="carousel-text-wrapper">
+      <h4><a style="border : 0px;" href="{{ ProdURL }}">{{ ProdTitle }}</a></h4>
+      <p class="carousel-text-price">{{ ProdPrice }}</p>
+    </div>
+	</div>
+{% endif %}

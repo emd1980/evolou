@@ -1,0 +1,340 @@
+{% if template contains "product" %}
+
+ <button id="SpreadrLink" type="button" style="display:none;" name="SpreadrLink" class="btn"
+                    onclick="SpreadrButtonClick()"
+                    data-comtag="evolou-20"
+                    data-intag=""
+                    data-catag=""
+                    data-uktag=""
+                    data-detag=""
+                    data-frtag=""
+                    data-estag=""
+                    data-cntag=""
+                    data-ittag=""
+                    data-jptag=""
+                    data-mxtag=""
+                    data-autag=""
+                    data-brtag=""
+                    data-redirect-url="{{product.metafields.global["spreadr-url"] | escape }}"
+                    data-spreadr-tag="{{product.metafields.global["spreadr-tag"] | escape }}"
+                    data-region="{{product.metafields.global["spreadr-region"] | escape }}"
+                    data-product-tag="{{product.tags | escape }}"
+                    data-spreadr-userid="26168"
+                    >
+              <span id="SpreadrLinkText">View on Amazon</span>
+</button>
+
+<script>
+var spreadrRedirectURL;
+var SpreadrWrapper = document.getElementById("SpreadrLink");
+setTimeout(function waitSpreadrWrapper() {
+    if (document.body.contains(SpreadrWrapper)) {
+        SpreadrInit();
+    } else {
+        setTimeout(waitSpreadrWrapper, 100);
+    }
+}, 100);
+
+function SpreadrInit(){
+    var spreadrtags = document.getElementById("SpreadrLink").getAttribute("data-spreadr-tag");
+    var findString = "spreadr-affiliate";
+
+   if((spreadrtags !== undefined) && (spreadrtags !== null) && (spreadrtags !== ""))
+    {
+
+       var spreadrtagindex = spreadrtags.indexOf(findString);
+
+       if (spreadrtagindex > -1)
+        {
+
+          var hiddentag = document.getElementById("SpreadrLink").getAttribute("data-product-tag");
+           var findText = "spreadr-hidden";
+
+           if((hiddentag !== undefined) && (hiddentag !== null) && (hiddentag !== ""))
+            {
+              var hiddentagindex = hiddentag.indexOf(findText);
+
+               if (hiddentagindex < 0)
+               {
+                    SpreadrShowButton();
+
+               }
+
+            }
+            else
+            {
+              SpreadrShowButton();
+            }
+
+        }
+    }
+}
+
+
+
+function SpreadrShowButton()
+{
+  var Spreadraddtocartform = document.querySelector("form[action='/cart/add']");
+  var Spreadraddtocartbutton = Spreadraddtocartform.querySelector("[type='submit']");
+  var Spreadrlinkbutton = document.getElementById("SpreadrLink");
+
+//code for special themes
+  if((Spreadraddtocartbutton === undefined) || (Spreadraddtocartbutton === null) || (Spreadraddtocartbutton === ""))
+  {
+    Spreadraddtocartbutton = document.getElementById("add-to-cart");
+    if((Spreadraddtocartbutton === undefined) || (Spreadraddtocartbutton === null) || (Spreadraddtocartbutton === ""))
+    {
+        Spreadraddtocartbutton = document.getElementById("product-add-to-cart");
+    }
+    else
+    {
+        Spreadraddtocartbutton.classList.remove("add-to-cart");
+    }
+  }
+
+  Spreadrlinkbutton.className += " " + Spreadraddtocartbutton.classList;
+
+  Spreadraddtocartbutton.style.display = "none";
+  Spreadrlinkbutton.style.display = "block";
+
+    //remove dynamic payment button
+    //$( ".shopify-payment-button" ).remove();
+    var shopifypaymentbutton = document.getElementsByClassName("shopify-payment-button");
+    while(shopifypaymentbutton.length > 0){
+        shopifypaymentbutton[0].parentNode.removeChild(shopifypaymentbutton[0]);
+    }
+
+
+
+
+    setInterval(function () {
+        Spreadraddtocartbutton.style.display = "none";
+        Spreadrlinkbutton.style.display = "block";
+
+        //remove dynamic payment button
+
+        var shopifypaymentbutton = document.getElementsByClassName("shopify-payment-button");
+        while(shopifypaymentbutton.length > 0){
+            shopifypaymentbutton[0].parentNode.removeChild(shopifypaymentbutton[0]);
+        }
+
+    }, 4000);
+
+    SetAffiliateTags();
+
+    //if geo-localization activated
+    if(0)
+    {
+      if (window.addEventListener)
+      {
+          window.addEventListener("load", findlocation, false)
+      } else {
+          window.attachEvent("onload", findlocation)
+      }
+    }
+}
+
+function SetAffiliateTags()
+{
+    spreadrRedirectURL = document.getElementById("SpreadrLink").getAttribute("data-redirect-url");
+
+    var region = document.getElementById("SpreadrLink").getAttribute("data-region");
+    var affiliateTag = "";
+    if(region == "com")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-comtag");
+    }
+    else if(region == "in")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-intag");
+    }
+     else if(region == "ca")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-catag");
+    }
+      else if(region == "co.uk")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-uktag");
+    }
+     else if(region == "de")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-detag");
+    }
+     else if(region == "fr")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-frtag");
+    }
+     else if(region == "es")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-estag");
+    }
+     else if(region == "cn")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-cntag");
+    }
+     else if(region == "it")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-ittag");
+    }
+     else if(region == "co.jp")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-jptag");
+    }
+     else if(region == "com.mx")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-mxtag");
+    }
+     else if(region == "com.br")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-brtag");
+    }
+     else if(region == "com.au")
+    {
+        affiliateTag = document.getElementById("SpreadrLink").getAttribute("data-autag");
+    }
+
+    spreadrRedirectURL = spreadrRedirectURL+"?tag="+affiliateTag;
+}
+
+function SpreadrButtonClick()
+{
+    window.open(spreadrRedirectURL);
+
+    //if analytics is ON
+      if(0)
+      {
+        if(typeof ga !== "undefined") {
+             ga("send", "event", { eventCategory: "Spreadr Link", eventAction: "Click", eventLabel:spreadrRedirectURL});
+          }
+      }
+
+       if(0)
+       {
+        if(typeof fbq !== "undefined") {
+            fbq("trackCustom", "SpreadrClick", {Amazonlink: spreadrRedirectURL});
+          }
+       }
+
+
+}
+
+
+function findlocation()
+{
+    jQuery.ajax({
+        url: "//extreme-ip-lookup.com/json/",
+        type: "POST",
+        dataType: "jsonp",
+        success: function(location) {
+            if(location.countryCode == undefined){
+                 jQuery.ajax({
+                    url: "//api.wipmania.com/json/",
+                    type: "POST",
+                    dataType: "jsonp",
+                    success: function(location) {
+                      localize(location.address.country_code.toLowerCase());
+                    }
+                });
+            } else {
+                localize(location.countryCode.toLowerCase());
+            }
+
+        }
+    });
+
+}
+
+function localize(country_code)
+{
+    var spreadr_region = "{{ product.metafields.global["spreadr-region"] }}";
+
+    switch(country_code) {
+    case "us":
+        if(spreadr_region != "com")
+        {
+          convertlink("com","evolou-20");
+        }
+        break;
+    case "ca":
+        if(spreadr_region != "ca")
+        {
+          convertlink("ca","");
+        }
+        break;
+    case "gb":
+        if(spreadr_region != "co.uk")
+        {
+          convertlink("co.uk","");
+        }
+        break;
+    case "in":
+        if(spreadr_region != "in")
+        {
+          convertlink("in","");
+        }
+        break;
+    case "de":
+        if(spreadr_region != "de")
+        {
+          convertlink("de","");
+        }
+        break;
+    case "fr":
+        if(spreadr_region != "fr")
+        {
+          convertlink("fr","");
+        }
+        break;
+    case "es":
+        if(spreadr_region != "es")
+        {
+          convertlink("es","");
+        }
+        break;
+    case "it":
+        if(spreadr_region != "it")
+        {
+          convertlink("it","");
+        }
+        break;
+     case "mx":
+        if(spreadr_region != "com.mx")
+        {
+          convertlink("com.mx","");
+        }
+        break;
+    case "jp":
+        if(spreadr_region != "co.jp")
+        {
+          convertlink("co.jp","");
+        }
+        break;
+    case "au":
+        if(spreadr_region != "com.au")
+        {
+          convertlink("com.au","");
+        }
+        break;
+    case "br":
+        if(spreadr_region != "com.br")
+        {
+          convertlink("com.br","");
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+ function convertlink(spreadr_region, aftag)
+ {
+    var keywords = "{{ product.metafields.global["spreadr-title"] | url_encode }}";
+    if(keywords == "" || keywords.length <= 0)
+    {
+      keywords = "{{ product.title | url_encode }}";
+    }
+    spreadrRedirectURL = "http://amazon." + spreadr_region + "/s/?field-keywords=" + keywords + "&tag=" + aftag;
+ }
+</script>
+
+{% endif %}

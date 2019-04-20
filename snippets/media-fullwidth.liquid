@@ -1,0 +1,32 @@
+{% case settings.product_aspect_ratio %}
+{% when '1' %}
+{%- assign image_width = settings.product_ratio_width -%}
+{%- assign image_height = '' -%} 
+{% else %}
+{%- assign image_width = settings.product_ratio_width -%}
+{%- assign image_height = settings.product_ratio_height -%}
+{% endcase %}  
+{% capture image_size %}{{ image_width }}x{{ image_height }}{% endcapture %}   
+<div class="product-image product-image-verticle product-image-zoom {% if product.images.size == 1 %}image-full{% endif%}">
+  <div class="product-image-gallery loading">
+    {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+    <img id="product-featured-image" class="gallery-image visible" src="{{ featured_image | product_img_url: image_size, crop: 'center' }}"/> 
+  </div>
+</div>    
+<div class="more-views-verticle"> 
+  <a class="more-views-prev more-views-nav" href="javascript:void(0)" id="carousel-up" style="display: block;">
+    <i class="icon-angle-up"></i>
+  </a>
+  <div class="media-list">
+    <div id="more-slides" class="verticl-carousel product-image-thumbs"> 
+      {% for image in product.images %}
+      <a class="thumb-link" href="javascript:void(0);" data-image-index="{{ forloop.index }}" data-image="{{ image | product_img_url: image_size, crop: 'center' }}" data-zoom-image="{{ image | product_img_url:'master' }}"> 
+        <img class="img-responsive" src="{{ image.src | img_url: '150x150', crop: 'center' }}" /> 
+      </a>  
+      {% endfor %}
+    </div>
+  </div> 
+  <a class="more-views-next more-views-nav" href="javascript:void(0)" id="carousel-down" style="display: block;">
+    <i class="icon-angle-down"></i>
+  </a>
+</div>  
